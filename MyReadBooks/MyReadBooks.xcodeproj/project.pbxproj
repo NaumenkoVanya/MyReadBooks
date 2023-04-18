@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA1AA87329E97A270066F13C /* Chat .swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1AA87229E97A270066F13C /* Chat .swift */; };
 		CA9B454029E9546A005036CF /* MyReadBooksApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9B453F29E9546A005036CF /* MyReadBooksApp.swift */; };
 		CA9B454229E9546A005036CF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9B454129E9546A005036CF /* ContentView.swift */; };
 		CA9B454429E9546D005036CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA9B454329E9546D005036CF /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CA1AA87229E97A270066F13C /* Chat .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chat .swift"; sourceTree = "<group>"; };
 		CA9B453C29E9546A005036CF /* MyReadBooks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyReadBooks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA9B453F29E9546A005036CF /* MyReadBooksApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReadBooksApp.swift; sourceTree = "<group>"; };
 		CA9B454129E9546A005036CF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				CA9B454829E9546D005036CF /* Persistence.swift */,
 				CA9B454A29E9546D005036CF /* MyReadBooks.xcdatamodeld */,
 				CA9B454529E9546D005036CF /* Preview Content */,
+				CA1AA87229E97A270066F13C /* Chat .swift */,
 			);
 			path = MyReadBooks;
 			sourceTree = "<group>";
@@ -146,6 +149,7 @@
 				CA9B454C29E9546D005036CF /* MyReadBooks.xcdatamodeld in Sources */,
 				CA9B454929E9546D005036CF /* Persistence.swift in Sources */,
 				CA9B454229E9546A005036CF /* ContentView.swift in Sources */,
+				CA1AA87329E97A270066F13C /* Chat .swift in Sources */,
 				CA9B454029E9546A005036CF /* MyReadBooksApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,7 +292,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "white-wolf.MyReadBooks";
+				PRODUCT_BUNDLE_IDENTIFIER = "white-wolf.MapView";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -317,7 +321,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "white-wolf.MyReadBooks";
+				PRODUCT_BUNDLE_IDENTIFIER = "white-wolf.MapView";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

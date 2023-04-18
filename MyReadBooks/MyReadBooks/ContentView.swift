@@ -6,80 +6,100 @@
 //
 
 import SwiftUI
-import CoreData
 
-struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+// MARK: - BookStruct
+struct BookStruct: Codable {
+    let success: Bool?
+    let result: [Result]?
+}
 
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
+// MARK: - Result
+struct Result: Codable {
+    let url, indirim, fiyat, yayın: String?
+    let yazar, title, image: String?
+}
+
+// Main ContentView for the app
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
+            List(books) { book in
+                NavigationLink(destination: BookDetailView(book: book)) {
+                    Text(book.title)
                 }
             }
-            Text("Select an item")
+            .navigationBarTitle("Books")
+        }
+        .onAppear {
+            fetchBooks()
         }
     }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+        
+    //"https://api.example.com/books"
+    func fetchBooks() {
+        guard let url = URL(string: "https://www.goodreads.com/book/") else {
+            return
         }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data {
+                do {
+                    let decodedBooks = try JSONDecoder().decode([Book].self, from: data)
+                    DispatchQueue.main.async {
+                        self.books = decodedBooks
+                    }
+                } catch {
+                    print("Failed to decode books: \(error.localizedDescription)")
+                }
+            } else if let error = error {
+                print("Failed to fetch books: \(error.localizedDescription)")
+            }
+        }.resume()
     }
 
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
 
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+// Book detail view
+
+struct BookDetailView: View {
+    let book: Book
+
+    var body: some View {
+        VStack {
+            Text(book.title)
+                .font(.title)
+                .padding()
+            List(book.chapters) { chapter in
+                NavigationLink(destination: ChapterDetailView(chapter: chapter)) {
+                    Text(chapter.title)
+                }
             }
+            .navigationBarTitle(book.title)
         }
     }
 }
 
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
+// Chapter detail view
+//struct ChapterDetailView: View {
+//    let chapter: Chapter
+//
+//    var body: some View {
+//        VStack {
+//            Text(chapter.title)
+//                .font(.title)
+//                .padding()
+//            ScrollView {
+//                VStack {
+//                    ForEach(chapter.pages) { page in
+//                        Text(page.content)
+//                            .padding()
+//                    }
+//                }
+//            }
+//            .navigationBarTitle(chapter.title)
+//        }
+//    }
+//}
+
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

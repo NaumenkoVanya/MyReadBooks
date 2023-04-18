@@ -7,14 +7,22 @@
 
 import SwiftUI
 
+//@main
+//struct MyReadBooksApp: App {
+//    let persistenceController = PersistenceController.shared
+//
+//    var body: some Scene {
+//        WindowGroup {
+//            ContentView()
+//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+//        }
+//    }
+//}
 @main
-struct MyReadBooksApp: App {
-    let persistenceController = PersistenceController.shared
-
+struct BookReaderApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
